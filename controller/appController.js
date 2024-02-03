@@ -1,5 +1,6 @@
 import Song from '../module/Song.js'
 import {validationResult, matchedData} from 'express-validator'
+import getStat from './statistics.js'
 
 let getSong = async (req, res, next) => {
     try {
@@ -91,69 +92,11 @@ let getStatistics = async (req, res, next) => {
     let songs;
     try {
         songs = await Song.find();
-        // console.log(songs)
-        // res.json(songs)
+        res.json(getStat(songs))
 
     } catch (err) {
         next(err)
-    }
-
-    // total number of songs, 
-         console.log(songs.length)
-    // total genres
-        
-        
-    // number of songs and albums each artist has
-        let artist = {};
-        
-        songs.forEach(data => {
-            if(!(data.Artist in artist)){
-                artist[data.Artist] = {
-                    song: 1,
-                    albums: {
-                        count: 1,
-                        data: [data.Album]
-                    }
-                }
-            } else {
-                artist[data.Artist].song++
-                if (artist[data.Artist].albums.data.indexOf(data.Album) == -1){
-                    artist[data.Artist].albums.data.push(data.Album)
-                    artist[data.Artist].albums.count++
-                }
-            }
-        })
-        // total number of artists
-        console.log(Object.keys(artist).length);
-
-        // total number of albums
-
-        // {
-        //     "&lt;a&gt;#@#@#&lt;&#x2F;a&gt;": {
-        //         "song": 3,
-        //         "albums": {
-        //             "count": 1,
-        //             "data": [
-        //                 "eferfrf"
-        //             ]
-        //         }
-        //     }
-        // }
-        let numOfAlbums = 0
-        for (let key in artist){
-            numOfAlbums += artist[key].albums.count
-        }
-        console.log(numOfAlbums);
-
-        res.json(artist);
-
-     
-
-    // number of songs in every genre
-    
-    // number of songs in each album 
-
-
+    } 
 }
 
 
