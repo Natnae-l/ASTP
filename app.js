@@ -20,12 +20,15 @@ mongoose.connect(process.env.MongoDB)
 
 
 
-// use cors middleware
+// use cors middleware to give access to the frontend Origin
 // const corsOptions = {
 //     origin: 'http://example.com',
 //     optionsSuccessStatus: 200 
 //   }
 app.use(cors())
+
+//middlewares
+app.use(express.urlencoded({extended: false}))
 
 // routes
 app.use(appRoutes)
