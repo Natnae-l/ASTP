@@ -1,6 +1,6 @@
 import Song from '../module/Song.js'
 import {validationResult, matchedData} from 'express-validator'
-import getStat from './statistics.js'
+import Statistics from '../classes/statistics.js'
 
 let getSong = async (req, res, next) => {
     try {
@@ -92,7 +92,9 @@ let getStatistics = async (req, res, next) => {
     let songs;
     try {
         songs = await Song.find();
-        res.json(getStat(songs))
+
+        Statistics.setArtistAndGenre(songs)
+        res.json(Statistics.mainData);
 
     } catch (err) {
         next(err)
