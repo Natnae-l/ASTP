@@ -1,4 +1,5 @@
 // this function have different algorithms to get the statistics of songs
+// have to be updated to OOP 
 
 function getStat(songs){
     let artist = {};
@@ -31,10 +32,12 @@ function getStat(songs){
         }
     })
 
+    let mainData = {}
+
 
     
-            // total number of songs, 
-            let totalNumOfSong = songs.length;
+        // total number of songs, 
+        mainData.totalNumberOfSong = songs.length;
 
         // number of songs and albums each artist has
 
@@ -46,18 +49,21 @@ function getStat(songs){
                 album: artist[key].albums.count
             })
           }
+          mainData.numberOfSongAndAlbumInArtist = numOfSongAndAlbumArtist
 
 
          // number of songs in every genre
          let numOfSongInEveryGenre = [];
          for (let key in genres){
             numOfSongInEveryGenre.push({
-                key: genres[key.song]
+                [key]: genres[key].song
+
             })
          }
+         mainData.numberOfSongInEveryGenre = numOfSongInEveryGenre
 
         // total number of artists
-        let totalNumOfArtist = Object.keys(artist).length
+        mainData.totalNumberOfArtist = Object.keys(artist).length
 
 
         // total number of albums
@@ -66,9 +72,10 @@ function getStat(songs){
         for (let key in artist){
             numOfAlbums += artist[key].albums.count
         }   
+        mainData.numOfAlbums = numOfAlbums
 
       // total genres
-      let totalGenres = Object.keys(genres).length
+      mainData.totalGenres = Object.keys(genres).length
     
     // number of songs in each album 
     let numOfSongInAlbum = [];
@@ -77,8 +84,9 @@ function getStat(songs){
             [artist[key].albums.album]: artist[key].albums.count
         })
     }
+    mainData.numOfSongInAlbum = numOfSongInAlbum;
 
-    return artist
+    return mainData
 }
 
 
