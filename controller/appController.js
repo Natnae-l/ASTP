@@ -56,16 +56,20 @@ let updateSong = async (req, res, next) => {
 
     try {
         const id = req.query.id;
-        
         if (id){
+            console.log(data);
+            console.log(req.body);
             let response = await Song.findByIdAndUpdate({_id: id}, data);
             if (response){
                 return res.json({
                       message: ['Song updated successfully'], response
                    })
             }
+            else {
+                return res.send({r: response, s: id})
+            }
         }
-        
+        return res.send(id)
     } catch (err) {
         next(err)
     }

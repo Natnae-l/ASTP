@@ -21,14 +21,15 @@ mongoose.connect(process.env.MongoDB)
 
 
 // use cors middleware to give access to the frontend Origin
-// const corsOptions = {
-//     origin: 'http://example.com',
-//     optionsSuccessStatus: 200 
-//   }
-app.use(cors())
+const corsOptions = {
+    origin: 'https://harmonics-song.netlify.app',
+    optionsSuccessStatus: 200 
+  }
+app.use(cors(corsOptions))
 
 //middlewares
 app.use(express.urlencoded({extended: false}))
+app.use(express.json())
 
 // routes
 app.use(appRoutes)

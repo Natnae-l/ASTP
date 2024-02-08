@@ -6,8 +6,15 @@ class Statistics {
     static artist = {} // store an updated form of songs data to manipulate according to the artist
     static genres = {} // store anupdated form songs data according to genre
 
+    // this method will make the storages empty with every request
+    static emptyStore(){
+        this.mainData = {}
+        this.artist = {}
+        this.genres = {}
+    }
     // assemble the song data to a reusable artist and genre objects
     static setArtistAndGenre(songs){
+        this.emptyStore()
          songs.forEach(data => {
             if(!(data.Artist in this.artist)){
                 this.artist[data.Artist] = {
@@ -66,8 +73,8 @@ class Statistics {
         let numOfSongInEveryGenre = [];
          for (let key in this.genres){
             numOfSongInEveryGenre.push({
-                [key]: this.genres[key].song
-
+                song: this.genres[key].song,
+                genre: key
             })
          }
         this.mainData.numberOfSongInEveryGenre = numOfSongInEveryGenre
@@ -98,12 +105,12 @@ class Statistics {
         let numOfSongInAlbum = [];
         for (let key in this.artist){
             numOfSongInAlbum.push({
-                [this.artist[key].albums.album]: this.artist[key].albums.count
+                album: this.artist[key].albums.album,
+                song: this.artist[key].albums.count
             })
         }
         this.mainData.numOfSongInAlbum = numOfSongInAlbum;
     }
-
 }
 
 export default Statistics
