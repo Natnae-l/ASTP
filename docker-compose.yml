@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  # mongoDB services
+    mongo_db:
+      container_name: db_container
+      image: mongo:latest
+      restart: always
+
+
+    # Node API service
+    api:
+      build:
+      ports:
+        - 3001:3001
+      environment:
+        PORT: 3001
+        MongoDB: mongodb+srv://Natnael:4RKNIcg9bateQUo5@myatlasclusteredu.sp4fkpp.mongodb.net/astp?retryWrites=true&w=majority
+      depends_on:
+        - mongo_db
+      
+
+
