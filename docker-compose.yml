@@ -10,7 +10,7 @@ services:
 
     # Node API service
     api:
-      build:
+      build: ./Dockerfile
       ports:
         - 3001:3001
       environment:
